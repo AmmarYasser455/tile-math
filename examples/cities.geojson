@@ -1,0 +1,10 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {"type": "Feature", "properties": {"name": "London", "wikidata": "Q84"}, "geometry": {"type": "Point", "coordinates": [-0.1275, 51.507222222222]}},
+    {"type": "Feature", "properties": {"name": "Paris", "wikidata": "Q90"}, "geometry": {"type": "Point", "coordinates": [2.352222222222222, 48.85666666666667]}},
+    {"type": "Feature", "properties": {"name": "Brussels", "wikidata": "Q239"}, "geometry": {"type": "Point", "coordinates": [4.351666666666667, 50.846666666666664]}},
+    {"type": "Feature", "properties": {"name": "Amsterdam", "wikidata": "Q727"}, "geometry": {"type": "Point", "coordinates": [4.883333333333333, 52.36666666666667]}},
+    {"type": "Feature", "properties": {"name": "Berlin", "wikidata": "Q64"}, "geometry": {"type": "Point", "coordinates": [13.383333333333, 52.516666666667]}}
+  ]
+}
