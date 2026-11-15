@@ -68,6 +68,13 @@ tiles covering their bounding box at zoom 6 are stored in `docs/demo.geojson` an
 [demo map](https://ammaryasser455.github.io/tile-math/); a test checks the file matches the current
 output. The walkthrough notebook is `examples/demo.ipynb`.
 
+## Showcase
+
+Which web-map tiles cover Egypt? Real Natural Earth data, a map, a short report and a notebook are in
+[`showcase/`](showcase/) (rebuild with `python showcase/make_showcase.py`).
+
+![map](showcase/map.png)
+
 ## Behaviour notes and limitations
 
 - Latitudes outside +-85.0511 cannot be tiled: points raise `ValueError`; bounding boxes are clamped to that limit.
