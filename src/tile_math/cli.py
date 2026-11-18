@@ -31,6 +31,7 @@ def _build_parser():
     s.add_argument("north", type=float)
     s.add_argument("zoom", type=int)
     s.add_argument("--geojson", action="store_true", help="output tile polygons as GeoJSON")
+    s.add_argument("--count", action="store_true", help="print only the number of tiles")
     s.add_argument("--max-tiles", type=int, default=1_000_000)
     return p
 
@@ -49,6 +50,8 @@ def _run(args):
     tiles = core.bbox_to_tiles(
         args.west, args.south, args.east, args.north, args.zoom, max_tiles=args.max_tiles
     )
+    if args.count:
+        return str(len(tiles))
     if args.geojson:
         return json.dumps(core.tiles_to_geojson(tiles), indent=2)
     return "\n".join(f"{z}/{x}/{y}" for x, y, z in tiles)

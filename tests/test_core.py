@@ -255,3 +255,12 @@ def test_bbox_max_tiles_validated():
 def test_cli_rejects_invalid_values(argv, capsys):
     assert main(argv) == 2
     assert "tile-math: error:" in capsys.readouterr().err
+
+
+def test_cli_bbox_count_matches_listing(capsys):
+    box = ["-0.1275", "48.8567", "13.3833", "52.5167", "6"]
+    assert main(["bbox", *box]) == 0
+    listed = capsys.readouterr().out.strip().splitlines()
+    assert main(["bbox", *box, "--count"]) == 0
+    assert capsys.readouterr().out.strip() == str(len(listed))
+    assert len(listed) == len(bbox_to_tiles(-0.1275, 48.8567, 13.3833, 52.5167, 6))
