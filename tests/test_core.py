@@ -264,3 +264,13 @@ def test_cli_bbox_count_matches_listing(capsys):
     assert main(["bbox", *box, "--count"]) == 0
     assert capsys.readouterr().out.strip() == str(len(listed))
     assert len(listed) == len(bbox_to_tiles(-0.1275, 48.8567, 13.3833, 52.5167, 6))
+
+
+def test_cli_bbox_antimeridian_fiji(capsys):
+    # Fiji spans the antimeridian (about 177E to 178W): tiles on both the
+    # easternmost (x=63) and westernmost (x=0) columns at zoom 6.
+    assert main(["bbox", "177", "-19", "-178", "-16", "6"]) == 0
+    lines = capsys.readouterr().out.split()
+    assert lines == ["6/0/34", "6/63/34", "6/0/35", "6/63/35"]
+    assert main(["bbox", "177", "-19", "-178", "-16", "6", "--count"]) == 0
+    assert capsys.readouterr().out.strip() == "4"
