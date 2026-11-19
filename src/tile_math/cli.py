@@ -24,6 +24,17 @@ def _build_parser():
     s = sub.add_parser("quadkey", help="decode a quadkey to z/x/y")
     s.add_argument("quadkey")
 
+    s = sub.add_parser("parent", help="ancestor tile of a tile")
+    s.add_argument("z", type=int)
+    s.add_argument("x", type=int)
+    s.add_argument("y", type=int)
+    s.add_argument("--levels", type=int, default=1, help="zoom levels up (default 1)")
+
+    s = sub.add_parser("children", help="the four child tiles of a tile")
+    s.add_argument("z", type=int)
+    s.add_argument("x", type=int)
+    s.add_argument("y", type=int)
+
     s = sub.add_parser("bbox", help="tiles covering a bbox")
     s.add_argument("west", type=float)
     s.add_argument("south", type=float)
@@ -47,6 +58,11 @@ def _run(args):
     if args.cmd == "quadkey":
         x, y, z = core.quadkey_to_tile(args.quadkey)
         return f"{z}/{x}/{y}"
+    if args.cmd == "parent":
+        x, y, z = core.parent_tile(args.x, args.y, args.z, args.levels)
+        return f"{z}/{x}/{y}"
+    if args.cmd == "children":
+        return "\n".join(f"{z}/{x}/{y}" for x, y, z in core.child_tiles(args.x, args.y, args.z))
     tiles = core.bbox_to_tiles(
         args.west, args.south, args.east, args.north, args.zoom, max_tiles=args.max_tiles
     )
