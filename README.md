@@ -39,6 +39,15 @@ $ tile-math bbox -0.1275 48.8567 13.3833 52.5167 6     # London..Berlin, zoom 6
 ...
 6/34/22
 
+$ tile-math parent 10 511 340                # London tile, one level up
+9/255/170
+
+$ tile-math children 9 255 170
+10/510/340
+10/511/340
+10/510/341
+10/511/341
+
 $ tile-math tile 0 89 3
 tile-math: error: latitude must be within +-85.0511 for Web Mercator, got 89.0
 ```
@@ -59,6 +68,9 @@ tiles instead (and takes precedence over `--geojson`). `python -m tile_math` wor
 >>> bbox_to_tiles(-0.1275, 48.8567, 13.3833, 52.5167, 6)[:3]
 [(31, 20, 6), (32, 20, 6), (33, 20, 6)]
 ```
+
+`parent_tile(x, y, z, levels=1)` and `child_tiles(x, y, z)` move between zoom levels
+(`parent_tile(511, 340, 10)` is `(255, 170, 9)`).
 
 `tiles_to_geojson(tiles)` returns a GeoJSON FeatureCollection with `x`, `y`, `z`, `quadkey` properties.
 

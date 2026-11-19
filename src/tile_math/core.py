@@ -140,6 +140,22 @@ def quadkey_to_tile(quadkey):
     return x, y, z
 
 
+def parent_tile(x, y, z, levels=1):
+    """Return the (x, y, z) ancestor tile `levels` zoom levels up (default: the direct parent)."""
+    x, y, z = _check_tile(x, y, z)
+    if not _is_int(levels) or not 0 <= levels <= z:
+        raise ValueError(f"levels must be an integer in 0..{z} for zoom {z}, got {levels!r}")
+    return x >> levels, y >> levels, z - levels
+
+
+def child_tiles(x, y, z):
+    """Return the four (x, y, z+1) child tiles, north-west first, row by row."""
+    x, y, z = _check_tile(x, y, z)
+    if z >= MAX_ZOOM:
+        raise ValueError(f"tile at zoom {z} has no children (maximum zoom is {MAX_ZOOM})")
+    return [(2 * x + dx, 2 * y + dy, z + 1) for dy in (0, 1) for dx in (0, 1)]
+
+
 def _span(lo, hi, n):
     """Tile index range covering [lo, hi] (tile units); exact edges don't spill over."""
     lo, hi = _snap(lo, n), _snap(hi, n)
