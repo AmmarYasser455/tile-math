@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/brand/logo.png" alt="tile-math logo" width="112">
+</p>
+
 # tile-math
 
 Convert between lat/lon, XYZ web-map tiles and quadkeys, and list the tiles covering a bounding box at a zoom level.
