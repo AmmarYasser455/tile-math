@@ -1,3 +1,5 @@
+import json
+
 import pytest
 
 from tile_math import child_tiles, lonlat_to_tile, parent_tile
@@ -47,3 +49,15 @@ def test_cli_encode_roundtrip(capsys):
     assert main(["quadkey", qk]) == 0
     assert capsys.readouterr().out.strip() == "10/511/340"
     assert main(["encode", "3", "8", "0"]) == 2  # x out of range
+
+
+def test_cli_bounds_geojson_london(capsys):
+    assert main(["bounds", "10", "511", "340", "--geojson"]) == 0
+    (feat,) = json.loads(capsys.readouterr().out)["features"]
+    assert feat["properties"] == {"x": 511, "y": 340, "z": 10, "quadkey": "0313131311"}
+    ring = feat["geometry"]["coordinates"][0]
+    # lon first: the London tile spans lon -0.35..0.0, lat 51.40..51.62
+    assert ring[0] == [-0.3515625, pytest.approx(51.39920565355377)]
+    assert ring[2] == [0.0, pytest.approx(51.6180165487737)]
+    assert main(["bounds", "10", "511", "340"]) == 0
+    assert capsys.readouterr().out.startswith("west=")

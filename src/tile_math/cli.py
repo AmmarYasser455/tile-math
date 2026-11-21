@@ -20,6 +20,7 @@ def _build_parser():
     s.add_argument("z", type=int)
     s.add_argument("x", type=int)
     s.add_argument("y", type=int)
+    s.add_argument("--geojson", action="store_true", help="output the tile polygon as GeoJSON")
 
     s = sub.add_parser("quadkey", help="decode a quadkey to z/x/y")
     s.add_argument("quadkey")
@@ -57,6 +58,8 @@ def _run(args):
         x, y, z = core.lonlat_to_tile(args.lon, args.lat, args.zoom)
         return f"{z}/{x}/{y} quadkey={core.tile_to_quadkey(x, y, z)}"
     if args.cmd == "bounds":
+        if args.geojson:
+            return json.dumps(core.tiles_to_geojson([(args.x, args.y, args.z)]), indent=2)
         b = core.tile_bounds(args.x, args.y, args.z)
         qk = core.tile_to_quadkey(args.x, args.y, args.z)
         return "west=%r south=%r east=%r north=%r quadkey=%s" % (*b, qk)
