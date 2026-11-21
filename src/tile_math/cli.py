@@ -24,6 +24,11 @@ def _build_parser():
     s = sub.add_parser("quadkey", help="decode a quadkey to z/x/y")
     s.add_argument("quadkey")
 
+    s = sub.add_parser("encode", help="quadkey of a tile (inverse of quadkey)")
+    s.add_argument("z", type=int)
+    s.add_argument("x", type=int)
+    s.add_argument("y", type=int)
+
     s = sub.add_parser("parent", help="ancestor tile of a tile")
     s.add_argument("z", type=int)
     s.add_argument("x", type=int)
@@ -58,6 +63,8 @@ def _run(args):
     if args.cmd == "quadkey":
         x, y, z = core.quadkey_to_tile(args.quadkey)
         return f"{z}/{x}/{y}"
+    if args.cmd == "encode":
+        return core.tile_to_quadkey(args.x, args.y, args.z)
     if args.cmd == "parent":
         x, y, z = core.parent_tile(args.x, args.y, args.z, args.levels)
         return f"{z}/{x}/{y}"

@@ -46,6 +46,9 @@ $ tile-math bbox -0.1275 48.8567 13.3833 52.5167 6     # London..Berlin, zoom 6
 ...
 6/34/22
 
+$ tile-math encode 3 3 5                     # z x y -> quadkey
+213
+
 $ tile-math parent 10 511 340                # London tile, one level up
 9/255/170
 

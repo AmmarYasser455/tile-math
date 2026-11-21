@@ -38,3 +38,12 @@ def test_cli_parent_children(capsys):
     assert main(["children", "9", "255", "170"]) == 0
     assert capsys.readouterr().out.split() == ["10/510/340", "10/511/340", "10/510/341", "10/511/341"]
     assert main(["parent", "0", "0", "0"]) == 2
+
+
+def test_cli_encode_roundtrip(capsys):
+    assert main(["encode", "10", "511", "340"]) == 0
+    qk = capsys.readouterr().out.strip()
+    assert qk == "0313131311"  # London tile
+    assert main(["quadkey", qk]) == 0
+    assert capsys.readouterr().out.strip() == "10/511/340"
+    assert main(["encode", "3", "8", "0"]) == 2  # x out of range
