@@ -7,7 +7,7 @@
 
 # tile-math
 
-Convert between lat/lon, XYZ web-map tiles and quadkeys, and list the tiles covering a bounding box at a zoom level.
+Part of [OpenTerra](https://github.com/AmmarYasser455), a family of open GIS tools. Convert between lat/lon, XYZ web-map tiles and quadkeys, and list the tiles covering a bounding box at a zoom level.
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AmmarYasser455/tile-math/blob/main/examples/demo.ipynb)
 · [Demo map](https://ammaryasser455.github.io/tile-math/)
