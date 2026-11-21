@@ -62,6 +62,7 @@ $ tile-math tile 0 89 3
 tile-math: error: latitude must be within +-85.0511 for Web Mercator, got 89.0
 ```
 
+`tile-math bounds Z X Y --geojson` prints a single tile as a GeoJSON polygon (lon/lat, EPSG:4326).
 `tile-math bbox ... --geojson` prints the tile polygons as GeoJSON; `--count` prints only the number of
 tiles instead (and takes precedence over `--geojson`). `python -m tile_math` works too.
 
